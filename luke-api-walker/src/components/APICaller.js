@@ -20,7 +20,18 @@ const APICaller = props => {
 
 
     return(
-        <h1>This is the category selected: {retrieved_data.name}</h1>
+        <>
+        <h1>{retrieved_data.name}</h1>
+
+        <h3>Height: {retrieved_data.height} cm</h3>
+
+        <h3>Mass: {retrieved_data.mass} kg</h3>
+
+        <h3>Hair Color: {retrieved_data.hair_color}</h3>
+
+        <h3>Skin Color: {retrieved_data.skin_color}</h3>
+
+        </>
     );
 }
 
