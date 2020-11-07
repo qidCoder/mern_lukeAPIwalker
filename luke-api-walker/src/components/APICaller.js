@@ -14,13 +14,13 @@ const APICaller = props => {
     useEffect( () => {
     Axios.get(`https://swapi.dev/api/${category}/${input}`)
         //update state variables
-        .then(res => setRetrieved_data(res))
+        .then(res => setRetrieved_data(res.data))
         .catch(err => console.log(err))
     }, [props])//adding props in the dependency array allows for when the user selects a new item, it will re-run the query to the API to get the new data
 
 
     return(
-        <h1>This is the category selected: {retrieved_data}</h1>
+        <h1>This is the category selected: {retrieved_data.name}</h1>
     );
 }
 

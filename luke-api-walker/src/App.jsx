@@ -37,10 +37,11 @@ function App() {
         <select value={category} onChange= {e => {setCategory(e.target.value)}}>
 
           {/* map out all the options */}
+          {/* convert the value to lowercase as the API is case sensitive */}
           {
             categories.map( (cat, i) => {
               return(
-                <option key={i} value={cat}>{cat == '' ? "----Select an Item------" : cat}</option>
+                <option key={i} value={cat.toLowerCase()}>{cat == '' ? "----Select an Item------" : cat}</option>
               )
             })
           }
