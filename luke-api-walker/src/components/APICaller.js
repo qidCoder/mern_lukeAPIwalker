@@ -15,7 +15,7 @@ const APICaller = props => {
         Axios.get(`https://swapi.dev/api/${category}/${input}`)
             //update state variables
             .then(res => setRetrieved_data(res.data))
-            .catch(err => console.log(err))
+            .catch(err => displayError())
     }, [props])//adding props in the dependency array allows for when the user selects a new item, it will re-run the query to the API to get the new data
 
     const displayPeople = () => {
@@ -50,6 +50,16 @@ const APICaller = props => {
         )
     }
 
+    //creating a function to display an error if th API request is unsuccessful
+    const displayError = () => {
+        return(
+            <>
+            <h1>These aren't the droids you're looking for</h1>
+            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/3326657-the-graham-norton-show-s20-e02-weekly-sneak-peak-3-youtube-preset-1920x1080-783391811912.jpg" alt="Obi Wan Kenobi"/>
+            </>
+        )
+    }
+
 
     return (
         <>
@@ -58,7 +68,7 @@ const APICaller = props => {
                 displayPeople() :
                 category == 'planets'
                     ? displayPlanets()
-                    : "you didn't sleect a person"
+                    : displayError()
             }
 
         </>

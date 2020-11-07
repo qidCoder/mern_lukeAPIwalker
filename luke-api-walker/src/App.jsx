@@ -20,7 +20,9 @@ function App() {
     e.preventDefault();
 
     //second send the form data to other components
-    navigate(`/${category}/${input}`)
+    //first check for improper submission, if error, send in path /error/error
+    {category == '' || isNaN(input) ? navigate(`/error/error`) :
+    navigate(`/${category}/${input}`)}
 
     //lastly, reset the state variable
     setCategory(categories[0]);
