@@ -2,7 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {navigate} from '@reach/router';//to use navigate
+import {Router, navigate} from '@reach/router';//to use navigate
+import APICaller from './components/APICaller';
 
 function App() {
 
@@ -53,6 +54,11 @@ function App() {
         {/* add submit button */}
         <input type="submit" />
       </form>
+
+      {/* set up router to actually call the component  */}
+      <Router>
+          <APICaller path="/:category/:input" />
+      </Router>
 
     </div>
   );
