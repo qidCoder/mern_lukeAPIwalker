@@ -23,7 +23,7 @@ function App() {
           {
             categories.map( (cat, i) => {
               return(
-                <option key={i} value={cat}>{cat}</option>
+                <option key={i} value={cat}>{cat == '' ? "----Select an Item------" : cat}</option>
               )
             })
           }
