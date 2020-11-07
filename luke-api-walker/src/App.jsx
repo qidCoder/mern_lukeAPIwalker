@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
@@ -29,6 +30,10 @@ function App() {
           }
 
         </select>
+
+        {/* add in ID textbox */}
+        <label>ID: </label>
+        <input type="text" />
       </form>
 
     </div>
