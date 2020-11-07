@@ -17,7 +17,7 @@ function App() {
       {/* search form */}
       <form>
         <label>Search For: </label>
-        <select value={category}>
+        <select value={category} onChange= {e => {setCategory(e.target.value)}}>
 
           {/* map out all the options */}
           {
