@@ -10,6 +10,7 @@ function App() {
 
   //State variables
   const [category, setCategory] = useState(categories[0]);
+  const [input, setInput] = useState(null);//for form input value
 
 
   return (
@@ -33,7 +34,7 @@ function App() {
 
         {/* add in ID textbox */}
         <label>ID: </label>
-        <input type="text" />
+        <input type="text" value={input} onChange={ e=> {setInput(e.target.value)}}/>
       </form>
 
     </div>
