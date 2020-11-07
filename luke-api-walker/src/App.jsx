@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {navigate} from '@reach/router';//to use navigate
 
 function App() {
 
@@ -12,12 +13,25 @@ function App() {
   const [category, setCategory] = useState(categories[0]);
   const [input, setInput] = useState(null);//for form input value
 
+  //function to process the submit button click
+  const handleSubmit = e => {
+    //first prevent default
+    e.preventDefault();
+
+    //second send the form data to other components
+    navigate(`/${category}/${input}`)
+
+    //lastly, reset the state variable
+    setCategory(categories[0]);
+    setInput(null);
+  }
+
 
   return (
     <div className="App">
 
       {/* search form */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Search For: </label>
         <select value={category} onChange= {e => {setCategory(e.target.value)}}>
 
@@ -35,6 +49,9 @@ function App() {
         {/* add in ID textbox */}
         <label>ID: </label>
         <input type="text" value={input} onChange={ e=> {setInput(e.target.value)}}/>
+
+        {/* add submit button */}
+        <input type="submit" />
       </form>
 
     </div>
