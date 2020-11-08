@@ -8,7 +8,7 @@ import APICaller from './components/APICaller';
 function App() {
 
   //list of dropdown categories
-  const categories = ['', 'Planets', 'People'];
+  const categories = ['', 'Planets', 'People', 'Films', 'Starships', 'Vehicles'];
 
   //State variables
   const [category, setCategory] = useState(categories[0]);
@@ -21,14 +21,11 @@ function App() {
 
     //second send the form data to other components
     //first check for improper submission, if error, send in path /error/error
-    {category === '' || isNaN(input) ? navigate(`/error/error`) :
+    {(category === '' || isNaN(input) || input === '') ? navigate(`/error/error`) :
     navigate(`/${category}/${input}`)}
 
-    //lastly, reset the state variable
-    setCategory(categories[0]);
-    setInput('');
-  }
 
+  }
 
   return (
     <div className="App">
@@ -36,7 +33,7 @@ function App() {
       {/* search form */}
       <form onSubmit={handleSubmit}>
         <label>Search For: </label>
-        <select value={category} onChange= {e => {setCategory(e.target.value)}}>
+        <select value={category} onChange= {e => setCategory(e.target.value)}>
 
           {/* map out all the options */}
           {/* convert the value to lowercase as the API is case sensitive */}

@@ -6,6 +6,7 @@ import {Link} from '@reach/router';//to create hyperlink to planet
 
 const APICaller = props => {
     //deconstruct props
+    console.log(props)
     const { category, input } = props;
 
     //create state variable to hold the retrieved information
@@ -17,23 +18,29 @@ const APICaller = props => {
             //update state variables
             .then(res => {
                 setRetrieved_data(res.data)
+                // console.log(retrieved_data)
 
                 //if it's a person, we will run the API call again to get the homeworld
                 if (category === 'people') {
-                    Axios.get(`${retrieved_data.homeworld}`)
-                        .then(res2 => {
-                            const new_homeworld2 = res2.data.name//variable for the homeworld name
+                    // console.log("a person!")
+                    // console.log(retrieved_data.homeworld)
+                    Axios.get(retrieved_data.homeworld)
+                        .then(res => {
+                            const new_homeworld2 = res.data.name//variable for the homeworld name
 
                             const homeworld_id = retrieved_data.homeworld.slice(29).slice(0,-1);//getting the id from the URL calling the planet API by slicing the URL and getting the last digit
-                            //The slice() method selects the elements starting at the given start argument, and ends at, but does not include, the given end argument.
+                            //The slice() method selects the elements   starting at the given start argument, and ends at, but does not include, the given end argument.
 
                             //update state variable to get the homeworld
                             setRetrieved_data({ 
                                 ...retrieved_data, 
                                 new_homeworld: new_homeworld2, 
                                 homeworldID : homeworld_id })
+                                // console.log(retrieved_data)
                         })
+                        .catch(err => displayError())
                 }
+                // console.log(retrieved_data)
             })
             .catch(err => displayError())
     }, [category, input])//adding props in the dependency array allows for when the user selects a new item, it will re-run the query to the API to get the new data
@@ -77,6 +84,57 @@ const APICaller = props => {
         )
     }
 
+    const displayFilms = () => {
+        return (
+            <>
+                <h1>{retrieved_data.title}</h1>
+
+                <h3>Episode: {retrieved_data.episode_id}</h3>
+
+                <h3>Director: {retrieved_data.director}</h3>
+
+                <h3>Release Date: {retrieved_data.release_date}</h3>
+
+                <h3>Opening Crawl: {retrieved_data.opening_crawl}</h3>
+            </>
+
+        )
+    }
+
+    const displayStarships = () => {
+        return (
+            <>
+                <h1>{retrieved_data.name}</h1>
+
+                <h3>Consumables: {retrieved_data.consumables}</h3>
+
+                <h3>Crew: {retrieved_data.crew}</h3>
+
+                <h3>Manufacturer: {retrieved_data.manufacturer}</h3>
+
+                <h3>Model: {retrieved_data.model}</h3>
+            </>
+
+        )
+    }
+
+    const displayVehicles = () => {
+        return (
+            <>
+                <h1>{retrieved_data.name}</h1>
+
+                <h3>Consumables: {retrieved_data.consumables}</h3>
+
+                <h3>Crew: {retrieved_data.crew}</h3>
+
+                <h3>Model: {retrieved_data.model}</h3>
+
+                <h3>Vehicle Class: {retrieved_data.vehicle_class}</h3>
+            </>
+
+        )
+    }
+
     //creating a function to display an error if th API request is unsuccessful
     const displayError = () => {
         return (
@@ -95,6 +153,12 @@ const APICaller = props => {
                 displayPeople() :
                 category === 'planets'
                     ? displayPlanets()
+                    : category === 'films'
+                    ? displayFilms()
+                    : category === 'starships'
+                    ? displayStarships()
+                    : category === 'vehicles'
+                    ? displayVehicles()
                     : displayError()
             }
 
