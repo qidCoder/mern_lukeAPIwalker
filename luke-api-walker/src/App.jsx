@@ -12,7 +12,7 @@ function App() {
 
   //State variables
   const [category, setCategory] = useState(categories[0]);
-  const [input, setInput] = useState(null);//for form input value
+  const [input, setInput] = useState('');//for form input value
 
   //function to process the submit button click
   const handleSubmit = e => {
@@ -21,7 +21,7 @@ function App() {
 
     //second send the form data to other components
     //first check for improper submission, if error, send in path /error/error
-    {category == '' || isNaN(input) ? navigate(`/error/error`) :
+    {category === '' || isNaN(input) ? navigate(`/error/error`) :
     navigate(`/${category}/${input}`)}
 
     //lastly, reset the state variable
@@ -43,7 +43,7 @@ function App() {
           {
             categories.map( (cat, i) => {
               return(
-                <option key={i} value={cat.toLowerCase()}>{cat == '' ? "----Select an Item------" : cat}</option>
+                <option key={i} value={cat.toLowerCase()}>{cat === '' ? "----Select an Item------" : cat}</option>
               )
             })
           }

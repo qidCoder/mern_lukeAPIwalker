@@ -21,10 +21,16 @@ const APICaller = props => {
                 if (category === 'people') {
                     Axios.get(`${retrieved_data.homeworld}`)
                         .then(res => {
-                            const new_homeworld2 = res.data.name
+                            const new_homeworld2 = res.data.name//variable for the homeworld name
+
+                            const homeworld_id = retrieved_data.homeworld.slice(29,30);//getting the id from the URL calling the planet API by slicing the URL and getting the last digit
+                            //The slice() method selects the elements starting at the given start argument, and ends at, but does not include, the given end argument.
 
                             //update state variable to get the homeworld
-                            setRetrieved_data({ ...retrieved_data, new_homeworld: new_homeworld2 })
+                            setRetrieved_data({ 
+                                ...retrieved_data, 
+                                new_homeworld: new_homeworld2, 
+                                homeworldID : homeworld_id })
                         })
                 }
             })
@@ -46,6 +52,8 @@ const APICaller = props => {
 
                 <h3>Homeworld: {retrieved_data.new_homeworld}
                 </h3>
+
+                <h3>Homeworld ID: {retrieved_data.homeworldID}</h3>
             </>)
     }
 
