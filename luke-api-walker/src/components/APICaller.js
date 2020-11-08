@@ -2,6 +2,7 @@
 
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import {Link} from '@reach/router';//to create hyperlink to planet
 
 const APICaller = props => {
     //deconstruct props
@@ -20,10 +21,10 @@ const APICaller = props => {
                 //if it's a person, we will run the API call again to get the homeworld
                 if (category === 'people') {
                     Axios.get(`${retrieved_data.homeworld}`)
-                        .then(res => {
-                            const new_homeworld2 = res.data.name//variable for the homeworld name
+                        .then(res2 => {
+                            const new_homeworld2 = res2.data.name//variable for the homeworld name
 
-                            const homeworld_id = retrieved_data.homeworld.slice(29,30);//getting the id from the URL calling the planet API by slicing the URL and getting the last digit
+                            const homeworld_id = retrieved_data.homeworld.slice(29).slice(0,-1);//getting the id from the URL calling the planet API by slicing the URL and getting the last digit
                             //The slice() method selects the elements starting at the given start argument, and ends at, but does not include, the given end argument.
 
                             //update state variable to get the homeworld
@@ -35,7 +36,7 @@ const APICaller = props => {
                 }
             })
             .catch(err => displayError())
-    }, [props])//adding props in the dependency array allows for when the user selects a new item, it will re-run the query to the API to get the new data
+    }, [category, input])//adding props in the dependency array allows for when the user selects a new item, it will re-run the query to the API to get the new data
 
     const displayPeople = () => {
         return (
@@ -51,9 +52,11 @@ const APICaller = props => {
                 <h3>Skin Color: {retrieved_data.skin_color}</h3>
 
                 <h3>Homeworld: {retrieved_data.new_homeworld}
-                </h3>
-
-                <h3>Homeworld ID: {retrieved_data.homeworldID}</h3>
+                </h3>               
+                
+                <Link to={`/planets/${retrieved_data.homeworldID}`} > Click to go to planet {retrieved_data.new_homeworld} </Link>
+                
+                
             </>)
     }
 

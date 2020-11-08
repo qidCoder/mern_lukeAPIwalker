@@ -26,7 +26,7 @@ function App() {
 
     //lastly, reset the state variable
     setCategory(categories[0]);
-    setInput(null);
+    setInput('');
   }
 
 
