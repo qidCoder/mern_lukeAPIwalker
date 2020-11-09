@@ -14,14 +14,14 @@ const APICaller = props => {
 
     //call the API to retrieve information
     useEffect(() => {
-        Axios.get(`https://swapi.dev/api/${props.category}/${props.input}`)
+        Axios.get(`https://swapi.dev/api/${category}/${input}`)
             //update state variables
             .then(res => {
                 // setRetrieved_data(res.data)
                 let new_char = res.data;
 
                 //if it's a person, we will run the API call again to get the homeworld
-                if (props.category === 'people') {
+                if (category === 'people') {
                     Axios.get(new_char.homeworld)
                         .then(res => {
                             // const new_homeworld2 = res.data.name//variable for the homeworld name
