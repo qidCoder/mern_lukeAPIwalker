@@ -15,28 +15,21 @@ const APICaller = props => {
     //call the API to retrieve information
     useEffect(() => {
         Axios.get(`https://swapi.dev/api/${category}/${input}`)
-            //update state variables
             .then(res => {
-                // setRetrieved_data(res.data)
                 let new_char = res.data;
 
                 //if it's a person, we will run the API call again to get the homeworld
                 if (category === 'people') {
                     Axios.get(new_char.homeworld)
                         .then(res => {
-                            // const new_homeworld2 = res.data.name//variable for the homeworld name
-                            new_char.new_homeworld = res.data.name;
+                            new_char.new_homeworld = res.data.name;//variable for the homeworld name
 
                             const homeworld_id = new_char.homeworld.slice(29);//getting the id from the URL calling the planet API by slicing the URL and getting the last digit - to be used later in creating a link to the Planet
                             //The slice() method selects the elements   starting at the given start argument, and ends at, but does not include, the given end argument.
 
                             new_char.homeworldID = homeworld_id;
-                            //update state variable to get the homeworld
-                            // setRetrieved_data({ 
-                            //     ...retrieved_data, 
-                            //     new_homeworld: new_homeworld2, 
-                            //     homeworldID : homeworld_id })
                             
+                            //update state variables
                             setRetrieved_data(new_char);
                         })
                         .catch(err => displayError())
@@ -44,7 +37,6 @@ const APICaller = props => {
                 else{
                     setRetrieved_data(new_char)
                 }
-                // console.log(retrieved_data)
             })
             .catch(err => displayError())
     }, [props])//adding props in the dependency array allows for when the user selects a new item, it will re-run the query to the API to get the new data
